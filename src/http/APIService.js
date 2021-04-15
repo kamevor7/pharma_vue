@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://mypharmaapp.herokuapp.com/';
 
 export class APIService {
   constructor() {
