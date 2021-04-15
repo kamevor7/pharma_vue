@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://www.mypharmaapp.herokuapp.com/';
+const API_URL = 'https://kjamevor.pythonanywhere.com/';
 
 export class APIService {
   constructor() {
