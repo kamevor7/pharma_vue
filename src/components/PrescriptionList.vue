@@ -14,7 +14,7 @@
                    :value="true"
                    type="success"
           >
-            New Prescription added.
+            New Prescription has been added.
           </v-alert>
           <v-alert v-if="showMsg === 'update'" dismissible
                    :value="true"
@@ -43,7 +43,7 @@
           >
             <template v-slot:item="props">
               <tr>
-                <td align="left">{{ props.item.patient }}</td>
+                <td align="left">{{ props.item.patient_number }}</td>
                 <td align="left">{{ props.item.rx_number }}</td>
                 <td nowrap="true" align="left">{{ props.item.name }}</td>
                 <td nowrap="true" align="left">{{ props.item.dosage }}</td>
@@ -72,7 +72,7 @@
                 >
                   <v-card>
                     <v-card-title class="pb-0 pt-0 pl-0">
-                      <v-col cols="9" class="text-left body-2 text-truncate">{{item.patient}} - {{item.rx_number }}</v-col>
+                      <v-col cols="9" class="text-left body-2 text-truncate">{{item.patient_number}} - {{item.rx_number }}</v-col>
                       <v-col cols="3" class="text-center">
                         <v-card-actions>
                           <v-icon @click="updatePrescription(item)" class="small">mdi-pencil</v-icon>
@@ -85,6 +85,7 @@
 
                     <v-list v-show="isExpanded(item)" dense>
                       <v-list-item>
+                        <v-list-item-content>Name:</v-list-item-content>
                         <v-list-item-content class="align-end">{{ item.name }}</v-list-item-content>
                       </v-list-item>
                       <v-list-item>
@@ -97,25 +98,24 @@
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-content>Refill:</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.refill }}</v-list-item-content>
+                        <v-list-item-content class="align-end">{{ item.refill }} </v-list-item-content>
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-content>Cost:</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.cost }}</v-list-item-content>
+                        <v-list-item-content class="align-end">{{ item.cost }} </v-list-item-content>
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-content>Prescription Date:</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.prescription_date }}</v-list-item-content>
+                        <v-list-item-content class="align-end">{{ item.prescription_date }} </v-list-item-content>
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-content>Status:</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.status }}</v-list-item-content>
+                        <v-list-item-content class="align-end">{{ item.status }} </v-list-item-content>
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-content>Pickup Date:</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.pickup_date }}</v-list-item-content>
+                        <v-list-item-content class="align-end">{{ item.pickup_date }} </v-list-item-content>
                       </v-list-item>
-
                     </v-list>
                   </v-card>
                 </v-col>
@@ -152,7 +152,7 @@ export default {
       {text: 'Description', sortable: false, align: 'left',},
       {text: 'Refill', sortable: false, align: 'left',},
       {text: 'Cost', sortable: false, align: 'left',},
-      {text: 'Prescription Date', sortable: false, align: 'left',},
+      {text: 'Date Prescribed', sortable: false, align: 'left',},
       {text: 'Status', sortable: false, align: 'left',},
       {text: 'Pickup Date', sortable: false, align: 'left',},
       {text: 'Update', sortable: false, align: 'left',},
@@ -162,7 +162,7 @@ export default {
 
   }),
   mounted() {
-    this.getPrescription();
+    this.getPrescriptions();
     this.showMessages();
   },
   methods: {
@@ -172,13 +172,14 @@ export default {
       else
         this.isMobile = false;
     },
+
     showMessages(){
       console.log(this.$route.params.msg)
       if (this.$route.params.msg) {
         this.showMsg = this.$route.params.msg;
       }
     },
-    getPrescription() {
+    getPrescriptions() {
       apiService.getPrescriptionList().then(response => {
         this.prescriptions = response.data.data;
         this.prescriptionSize = this.prescriptions.length;
@@ -204,13 +205,13 @@ export default {
       }
     },
     updatePrescription(prescription) {
-      router.push('/prescription-create/' + prescription.id);
+      router.push('/prescription-create/' + prescription.pk);
     },
     deletePrescription(prescription) {
-      apiService.deletePrescription(prescription.id).then(response => {
+      apiService.deletePrescription(prescription.pk).then(response => {
         if (response.status === 204) {
           router.push('/prescription-list/deleted/')
-          this.getPrescription()
+          this.getPrescriptions()
         }
       }).catch(error => {
         if (error.response.status === 401) {

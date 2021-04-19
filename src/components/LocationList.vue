@@ -45,10 +45,10 @@
               <tr>
                 <td align="left">{{ props.item.store_number }}</td>
                 <td nowrap="true" align="left">{{ props.item.address }}</td>
+                <td nowrap="true" align="left">{{ props.item.phone_number }}</td>
                 <td nowrap="true" align="left">{{ props.item.city }}</td>
                 <td nowrap="true" align="left">{{ props.item.state }}</td>
                 <td nowrap="true" align="left">{{ props.item.zipcode }}</td>
-                <td nowrap="true" align="left">{{ props.item.phone_number }}</td>
                 <td align="center">
                   <v-icon @click="updateLocation(props.item)">mdi-pencil</v-icon>
                 </td>
@@ -181,10 +181,10 @@ export default {
       }
     },
     updateLocation(location) {
-      router.push('/location-create/' + location.id);
+      router.push('/location-create/' + location.pk);
     },
     deleteLocation(location) {
-      apiService.deleteLocation(location.id).then(response => {
+      apiService.deleteLocation(location.pk).then(response => {
         if (response.status === 204) {
           router.push('/location-list/deleted/')
           this.getLocation()

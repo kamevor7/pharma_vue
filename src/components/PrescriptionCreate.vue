@@ -9,7 +9,7 @@
                      :value="true"
                      type="error"
             >
-              Please verify Prescription.
+              Please verify Prescription Details.
             </v-alert>
           </v-col>
         </v-row>
@@ -56,13 +56,13 @@
                     />
                     <v-text-field
                       v-model="prescription.refill"
-                      label="Refills"
+                      label="Refill"
                       required
                       type="number"
                     />
                     <v-text-field
                       v-model="prescription.cost"
-                      label="Cost"
+                      label="cost"
                       required
                       type="number"
                     />
@@ -79,7 +79,7 @@
                     />
                     <v-text-field
                       v-model="prescription.pickup_date"
-                      label="Date Picked Up"
+                      label="Pickup Date"
                       required
                       type="date"
                     />
@@ -128,8 +128,8 @@ export default {
     }
   },
   methods: {
-    getPrescription() {
-      apiService.getPrescriptionList().then(response => {
+    getPatients() {
+      apiService.getPatientList().then(response => {
         this.patients = response.data.data;
         if (localStorage.getItem("isAuthenticates")
           && JSON.parse(localStorage.getItem("isAuthenticates")) === true) {
@@ -182,7 +182,7 @@ export default {
     }
   },
   mounted() {
-    this.getPrescription();
+    this.getPatients();
     if (this.$route.params.pk) {
       this.pageTitle = "Edit Prescription";
       this.isUpdate = true;

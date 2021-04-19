@@ -90,16 +90,16 @@
 
                     <v-list v-show="isExpanded(item)" dense>
                       <v-list-item>
-                        <v-list-item-content>Date of Birth:</v-list-item-content>
-                        <v-list-item-content class="align-end">{{ item.date_of_birth }}</v-list-item-content>
-                      </v-list-item>
-                      <v-list-item>
                         <v-list-item-content>Address:</v-list-item-content>
                         <v-list-item-content class="align-end">{{ item.address }}
                           {{ item.city }}
                           {{ item.state }}
                           {{ item.zipcode }}
                         </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>Date of Birth:</v-list-item-content>
+                        <v-list-item-content class="align-end">{{ item.date_of_birth }}</v-list-item-content>
                       </v-list-item>
                       <v-list-item>
                         <v-list-item-content>Email Address:</v-list-item-content>
@@ -197,10 +197,10 @@ export default {
       }
     },
     updatePatient(patient) {
-      router.push('/patient-create/' + patient.id);
+      router.push('/patient-create/' + patient.pk);
     },
     deletePatient(patient) {
-      apiService.deletePatient(patient.id).then(response => {
+      apiService.deletePatient(patient.pk).then(response => {
         if (response.status === 204) {
           router.push('/patient-list/deleted/')
           this.getPatient()

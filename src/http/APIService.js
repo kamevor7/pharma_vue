@@ -7,8 +7,8 @@ export class APIService {
 
   }
 
-  getLocation(param_id) {
-    const url = `${API_URL}/api/locations/${param_id}`;
+  getLocation(param_pk) {
+    const url = `${API_URL}/api/locations/${param_pk}`;
     let jwtToken = localStorage.getItem('token');
     console.log(":::jwtToken:::::" + jwtToken);
     const headers = {Authorization: `jwt ${jwtToken}`};
@@ -32,7 +32,7 @@ export class APIService {
   }
 
   updateLocation(location) {
-    const url = `${API_URL}/api/locations/${location.id}`;
+    const url = `${API_URL}/api/locations/${location.pk}`;
     let jwtToken = localStorage.getItem('token');
     const headers = {Authorization: `jwt ${jwtToken}`};
     return axios.put(url, location, {headers: headers});
@@ -45,8 +45,8 @@ export class APIService {
     return axios.delete(url, {headers: headers});
   }
 
-  getPatient(param_id) {
-    const url = `${API_URL}/api/patients/${param_id}`;
+  getPatient(param_pk) {
+    const url = `${API_URL}/api/patients/${param_pk}`;
     let jwtToken = localStorage.getItem('token');
     console.log(":::jwtToken:::::" + jwtToken);
     const headers = {Authorization: `jwt ${jwtToken}`};
@@ -70,7 +70,7 @@ export class APIService {
   }
 
   updatePatient(patient) {
-    const url = `${API_URL}/api/patients/${patient.id}`;
+    const url = `${API_URL}/api/patients/${patient.pk}`;
     let jwtToken = localStorage.getItem('token');
     const headers = {Authorization: `jwt ${jwtToken}`};
     return axios.put(url, patient, {headers: headers});
@@ -83,8 +83,8 @@ export class APIService {
     return axios.delete(url, {headers: headers});
   }
 
-  getPrescription(param_id) {
-    const url = `${API_URL}/api/prescriptions/${param_id}`;
+  getPrescription(param_pk) {
+    const url = `${API_URL}/api/prescriptions/${param_pk}`;
     let jwtToken = localStorage.getItem('token');
     console.log(":::jwtToken:::::" + jwtToken);
     const headers = {Authorization: `jwt ${jwtToken}`};
@@ -108,7 +108,7 @@ export class APIService {
   }
 
   updatePrescription(prescription) {
-    const url = `${API_URL}/api/prescriptions/${prescription.id}`;
+    const url = `${API_URL}/api/prescriptions/${prescription.pk}`;
     let jwtToken = localStorage.getItem('token');
     const headers = {Authorization: `jwt ${jwtToken}`};
     return axios.put(url, prescription, {headers: headers});
